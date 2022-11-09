@@ -1,0 +1,66 @@
+<div class="flex w-full h-full justify-center mt-16">
+    <mat-card class="mat-elevation-z4 w-3/4 h-3/4">
+        <!--style="height: 60px !important; max-height: 60px !important; overflow-y: auto !important;"-->
+        <div class="max-h-64 h-64 overflow-y-auto">
+            <table mat-table #table [dataSource]="dataSource" class="w-full">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Id </th>
+                    <td mat-cell *matCellDef="let row"> {{row.UserId}} </td>
+                </ng-container>
+                <ng-container matColumnDef="nome">
+                    <th mat-header-cell *matHeaderCellDef> Nome </th>
+                    <td mat-cell *matCellDef="let row"> {{row.nome}} </td>
+                </ng-container>
+                <ng-container matColumnDef="hobby">
+                    <th mat-header-cell *matHeaderCellDef> Hobby </th>
+                    <td mat-cell *matCellDef="let row"> {{row.hobby}} </td>
+                </ng-container>
+                <ng-container matColumnDef="acao">
+                    <th mat-header-cell *matHeaderCellDef class="w-28">
+                        <button (click)="list()" color="primary" mat-icon-button matTooltip="Atualizar">
+                            <mat-icon>refresh</mat-icon>
+                        </button>
+                        <button (click)="wipe()" class="text-red-700 float-right" mat-icon-button matTooltip="Apagar tudo">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </th>
+                    <td mat-cell *matCellDef="let row"></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+        </div>
+
+        <form (ngSubmit)="insert()" class='flex flex-col w-full justify-center mt-8' [formGroup]="form">
+
+            <div class="flex flex-row justify-center w-full">
+                <mat-form-field class="w-3/4">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="nome" type="text">
+                    <mat-error *ngIf="!form.get('nome')?.valid">Campo obrigatório</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="flex flex-row justify-center w-full mt-1">
+                <mat-form-field class="w-3/4">
+                    <mat-label>Hobby</mat-label>
+                    <input matInput formControlName="hobby" type="text">
+                    <mat-error *ngIf="!form.get('hobby')?.valid">Campo obrigatório</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="flex flex-row justify-center w-full mt-8">
+                <button mat-raised-button color="primary" class="w-1/2" type="submit" [disabled]="!form.valid">
+                    Inserir
+                </button>
+            </div>
+        </form>
+
+
+        <div class="mt-16 justify-center">
+            <button mat-raised-button color='primary' (click)="voltar()">Voltar para a página anterior</button>
+        </div>
+
+    </mat-card>
+
+</div>
